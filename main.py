@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 errors = []
@@ -6,7 +7,7 @@ errors = []
 def hypothesis(params, samples):
     return sum(p * s for p, s in zip(params, samples))
 
-def show_errors(params, samples, y):
+def mean_square_error(params, samples, y):
     acum = 0
     for i in range(len(samples)):
         hyp = hypothesis(params, samples[i])
@@ -32,5 +33,54 @@ def scaling(samples):
         samples[i] = (samples[i] - average) / max_value
     return samples.T.tolist()
 
+def load_dataset():
+    columns = ['symboling', 'normalized_losses', 'make', 'fuel_type', 
+               'aspiration', 'num_doors', 'body_style', 'drive_wheels', 'engine_location', 
+               'wheel_base', 'length', 'width', 'height', 'curb_weight', 'engine_type', 
+               'num_cylinders', 'engine_size', 'fuel_system', 'bore', 'stroke', 
+               'compression_ratio', 'horsepower', 'peak_rpm', 'city_mpg', 'highway_mpg', 'price']
+    
+    data = pd.read_csv('data/imports-85.data', names=columns)
+    return data
+
 if __name__ == "__main__":
-    pass
+    df = load_dataset()
+
+    features = []
+    results = []
+
+    df.replace("?", pd.NA, inplace=True)
+    df['price'] = pd.to_numeric(df['price'], errors='coerce')
+    df.dropna(subset=['price'], inplace=True)
+    df.dropna(subset=['horsepower'], inplace=True)
+
+    for i in range(len(df)):
+            row = df.iloc[i]
+            if row['price'] != '?':
+                features.append([1.0, float(row['wheel_base']), float(row['curb_weight']), float(row['engine_size']), float(row['horsepower']), float(row['city_mpg']), float(row['highway_mpg'])])
+                results.append(float(row['price']))
+
+    x = np.array(features)
+    y = np.array(results)
+
+    scaled_x = scaling(x)
+
+    parameters = np.zeros(len(features[0]))
+    alpha = 0.03
+    epoch = 0
+
+    while True:
+        mean_square_error(parameters, scaled_x, y)
+        parameters = descending_gradient(parameters, scaled_x, y, alpha)
+        epoch += 1
+
+        if epoch == 1000:
+            break
+
+    print(f"Parameters: {parameters}")
+    print(f"Errors: {errors[-5:]}")
+
+    plt.plot(errors)
+    plt.xlabel('Epoch')
+    plt.ylabel('MSE')
+    plt.show()
