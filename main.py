@@ -1,3 +1,26 @@
+"""
+File: main.py
+==================================================================
+Description:
+This file contains the implementation of a linear regression
+algorithm using the gradient descent method. The dataset used
+is the 'imports-85.data' file, which contains information about
+cars and their prices. The goal is to predict the price of a car
+based on its features.
+
+==================================================================
+Date                    Author                   Description
+21/08/2024         J. Riosmena          First implementation
+
+==================================================================
+Comments:
+
+==================================================================
+To run:
+
+$ python main.py
+"""
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -66,19 +89,26 @@ if __name__ == "__main__":
     scaled_x = scaling(x)
 
     parameters = np.zeros(len(features[0]))
-    alpha = 0.03
+    alpha = 0.5
     epoch = 0
 
     while True:
+        old_params = list(parameters)
         mean_square_error(parameters, scaled_x, y)
         parameters = descending_gradient(parameters, scaled_x, y, alpha)
         epoch += 1
 
-        if epoch == 1000:
+        if epoch == 2000 or np.array_equal(old_params, parameters):
             break
 
-    print(f"Parameters: {parameters}")
-    print(f"Errors: {errors[-5:]}")
+    print("===========================================================")
+    print(f"Epochs: {epoch}")
+    print("===========================================================")
+    print("Parameters \t\tOld Parameters")
+    for p, op in zip(parameters, old_params):
+        print(f"{p} \t{op}")
+    print("===========================================================")
+    print(f"Error: {errors[-1]}")
 
     plt.plot(errors)
     plt.xlabel('Epoch')
