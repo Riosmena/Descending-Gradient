@@ -120,7 +120,9 @@ def load_dataset():
                'compression_ratio', 'horsepower', 'peak_rpm', 
                'city_mpg', 'highway_mpg', 'price']
     
-    data = pd.read_csv('data/imports-85.data', names=columns)
+    path = 'data/imports-85.data'
+    
+    data = pd.read_csv(path, names=columns)
     
     return data
 
@@ -180,14 +182,23 @@ if __name__ == "__main__":
         # Handle missing values
         if row['price'] == 'nan':
             continue
-
-        if row['wheel_base'] == 'nan' or row['curb_weight'] == 'nan' or row['engine_size'] == 'nan' or row['horsepower'] == 'nan' or row['city_mpg'] == 'nan' or row['highway_mpg'] == 'nan':
-            price_val = price_mean
+        
+        if row['wheel_base'] == 'nan':
             wheel_base_val = wheel_base_mean
+        
+        if row['curb_weight'] == 'nan':
             curb_weight_val = curb_weight_mean
+        
+        if row['engine_size'] == 'nan':
             engine_size_val = engine_size_mean
+        
+        if row['horsepower'] == 'nan':
             horsepower_val = horsepower_mean
+        
+        if row['city_mpg'] == 'nan':
             city_mpg_val = city_mpg_mean
+        
+        if row['highway_mpg'] == 'nan':
             highway_mpg_val = highway_mpg_mean
 
         # Append features and result to their respective lists
@@ -209,7 +220,7 @@ if __name__ == "__main__":
 
     # Initialize parameters, learning rate, and epoch counter
     parameters = np.zeros(len(features[0]))
-    alpha = 0.5
+    alpha = 0.9
     epoch = 0
 
     # Train the model using gradient descent
