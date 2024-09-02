@@ -26,7 +26,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import SGDRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 
@@ -77,8 +77,12 @@ if __name__ == "__main__":
     val_x = scaler.transform(val_x)
     test_x = scaler.transform(test_x)
 
-    # Train the model using scikit-learn's LinearRegression
-    model = LinearRegression()
+    # Define initial values for epochs and learning rate
+    epochs = 200
+    learning_rate = 0.01
+
+    # Train the model using scikit-learn's SGDRegressor
+    model = SGDRegressor(max_iter=epochs, eta0=learning_rate, tol=0.0001)
     model.fit(train_x, train_y)
 
     # Predict on training and validation sets
