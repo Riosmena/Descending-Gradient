@@ -78,8 +78,8 @@ if __name__ == "__main__":
     test_x = scaler.transform(test_x)
 
     # Define initial values for epochs and learning rate
-    epochs = 200
-    learning_rate = 0.01
+    epochs = 1000
+    learning_rate = 0.03
 
     # Train the model using scikit-learn's SGDRegressor
     model = SGDRegressor(max_iter=epochs, eta0=learning_rate, tol=0.0001)
