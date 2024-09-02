@@ -2,6 +2,14 @@
 
 This repository is my solution to the activity of Module 2. From course: TC3006C Advanced Artificial Intelligence for Data Science I
 
+## Author
+
+<a href="https://github.com/Riosmena/Descending-Gradient/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Riosmena/Descending-Gradient"/>
+</a>
+
+- José Emiliano Riosmena Castañón - A01704245
+
 ## Contents
 
 - Dataset -> data/imports-85.data
