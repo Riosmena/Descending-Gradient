@@ -1,3 +1,27 @@
+"""
+File: main_framework.py
+==========================================================================
+Description:
+This file contains the implementation of a linear regression
+algorithm using the gradient descent method, using a framework. 
+The dataset used is the 'imports-85.data' file, which contains 
+information aboutcars and their prices. The goal is to predict the 
+price of a car based on its features.
+
+==========================================================================
+Date                    Author                   Description
+02/09/2024         J. Riosmena          First implementation
+
+==========================================================================
+Comments:
+
+==========================================================================
+To run:
+
+$ python main_framework.py
+"""
+
+# Libraries needed
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -8,6 +32,11 @@ import matplotlib.pyplot as plt
 
 # Load the dataset
 def load_dataset():
+    """
+    This function loads the dataset from a CSV file and returns it as a DataFrame.
+    
+    :return: pandas DataFrame containing the dataset
+    """
     columns = ['symboling', 'normalized_losses', 'make', 'fuel_type', 
                'aspiration', 'num_doors', 'body_style', 'drive_wheels', 
                'engine_location', 'wheel_base', 'length', 'width', 
