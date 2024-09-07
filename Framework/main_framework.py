@@ -101,7 +101,7 @@ if __name__ == "__main__":
     print(f"Validation MSE: {val_mse}")
 
     # Plot the training and validation errors
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 10))
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 8))
     ax1.plot(range(len(train_pred)), train_y - train_pred, label='Train Error', color='blue')
     ax1.set_xlabel('Sample Index')
     ax1.set_ylabel('Train Error')
