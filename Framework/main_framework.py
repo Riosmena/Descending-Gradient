@@ -95,6 +95,11 @@ if __name__ == "__main__":
     train_mse = mean_squared_error(train_y, train_pred)
     val_mse = mean_squared_error(val_y, val_pred)
 
+    # Calculate the bias
+    bias =model.intercept_
+
+    # Print the results
+    print(f"Bias: {bias}")
     print(f"Train R^2: {train_r2}")
     print(f"Validation R^2: {val_r2}")
     print(f"Train MSE: {train_mse}")
