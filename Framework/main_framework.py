@@ -96,7 +96,7 @@ if __name__ == "__main__":
     val_mse = mean_squared_error(val_y, val_pred)
 
     # Calculate the bias
-    bias =model.intercept_
+    bias = np.mean(train_pred - train_y)
 
     # Print the results
     print(f"Bias: {bias}")
